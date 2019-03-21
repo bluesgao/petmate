@@ -3,8 +3,8 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"petmate/handler/app"
-	"petmate/handler/sys"
+	"petmate/handler/appinfo"
+	"petmate/handler/sysinfo"
 )
 
 //路由
@@ -15,17 +15,17 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		ctx.String(http.StatusNotFound, "the incorrect api route.")
 	})
 
-	sysGroup := g.Group("/sys")
+	sysGroup := g.Group("/sysinfo")
 	{
-		sysGroup.GET("/ping", sys.Ping)
-		sysGroup.GET("/disk", sys.Disk)
-		sysGroup.GET("/cpu", sys.Cpu)
-		sysGroup.GET("/mem", sys.Mem)
+		sysGroup.GET("/ping", sysinfo.Ping)
+		sysGroup.GET("/disk", sysinfo.Disk)
+		sysGroup.GET("/cpu", sysinfo.Cpu)
+		sysGroup.GET("/mem", sysinfo.Mem)
 	}
 
-	appGroup := g.Group("/app")
+	appGroup := g.Group("/appinfo")
 	{
-		appGroup.GET("/name", app.Name)
+		appGroup.GET("/name", appinfo.Name)
 	}
 
 	return g
