@@ -11,8 +11,10 @@ replace golang.org/x/sync v0.0.0 => github.com/golang/sync v0.0.0-20190227155943
 replace golang.org/x/text v0.0.0 => github.com/golang/text v0.3.0
 
 require (
+	github.com/StackExchange/wmi v0.0.0-20181212234831-e0a55b97c705 // indirect
 	github.com/gin-contrib/sse v0.0.0-20190301062529-5545eab6dad3 // indirect
 	github.com/gin-gonic/gin v1.3.0
+	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/golang/protobuf v1.3.1 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
@@ -22,6 +24,7 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/mongodb/mongo-go-driver v1.0.0
+	github.com/shirou/gopsutil v2.18.12+incompatible
 	github.com/tidwall/pretty v0.0.0-20180105212114-65a9db5fad51 // indirect
 	github.com/ugorji/go/codec v0.0.0-20190320090025-2dc34c0b8780 // indirect
 	github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c // indirect
