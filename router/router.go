@@ -3,6 +3,7 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"petmate/handler/app"
 	"petmate/handler/sys"
 )
 
@@ -20,6 +21,11 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		sysGroup.GET("/disk", sys.Disk)
 		sysGroup.GET("/cpu", sys.Cpu)
 		sysGroup.GET("/mem", sys.Mem)
+	}
+
+	appGroup := g.Group("/app")
+	{
+		appGroup.GET("/name", app.Name)
 	}
 
 	return g
