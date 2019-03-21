@@ -3,9 +3,11 @@ package main
 import (
 	"errors"
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 	"io/ioutil"
 	"log"
 	"net/http"
+	_ "petmate/config"
 	"petmate/router"
 	"time"
 )
@@ -15,18 +17,10 @@ func main() {
 
 	router.Load(g, nil)
 
-	/*	go func() {
-		if err := pingServer(); err != nil {
-			log.Fatal("The router has no response, or it might took too long to start up.", err)
-		}
-		log.Print("The router has been deployed successfully.")
-	}()*/
-
-	log.Printf("Start to listening the incoming requests on http address: %s", ":8080")
-	if err := http.ListenAndServe(":8080", g); err != nil {
+	log.Printf("[%s] Start to listening the incoming requests on http address: [%s]", viper.GetString("app.name"), viper.GetString("app.addr"))
+	if err := http.ListenAndServe(viper.GetString("app.addr"), g); err != nil {
 		log.Printf("api server start fail, cause by: %s", err)
 	}
-
 }
 
 func pingServer() error {

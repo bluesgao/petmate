@@ -6,6 +6,7 @@ import (
 	"petmate/handler/sys"
 )
 
+//路由
 func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	g.Use(gin.Recovery())
 	//g.Use(mw...)
