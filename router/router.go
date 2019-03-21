@@ -15,6 +15,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		ctx.String(http.StatusNotFound, "the incorrect api route.")
 	})
 
+	//系统相关
 	sysGroup := g.Group("/sysinfo")
 	{
 		sysGroup.GET("/ping", sysinfo.Ping)
@@ -23,6 +24,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		sysGroup.GET("/mem", sysinfo.Mem)
 	}
 
+	//应用相关
 	appGroup := g.Group("/appinfo")
 	{
 		appGroup.GET("/name", appinfo.Name)
