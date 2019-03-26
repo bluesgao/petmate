@@ -10,7 +10,7 @@ type User struct {
 
 func (user *User) Create() error {
 	log.Printf("create user: %+v \n", user)
-	key := "u_" + user.username
+	key := "u_" + user.Username
 
 	fields := make(map[string]interface{})
 	fields["username"] = user.Username
