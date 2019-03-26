@@ -1,20 +1,17 @@
 package main
 
 import (
-	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"petmate/config"
 	_ "petmate/config"
 	"petmate/model"
 	"petmate/router"
-	"time"
 )
 
-func init()  {
+func init() {
 	log.Print("main init start...")
 	config.InitFileConf()
 	model.InitRedisClient(viper.GetString("redis.addr"), viper.GetString("password"), viper.GetInt("poolsize"))
@@ -32,7 +29,7 @@ func main() {
 	}
 }
 
-func pingServer() error {
+/*func pingServer() error {
 	for i := 0; i < 2; i++ {
 		if resp, err := http.Get("http://127.0.0.1:8080" + "/sysinfo/ping"); resp.StatusCode == 200 && err == nil {
 
@@ -47,4 +44,4 @@ func pingServer() error {
 	}
 
 	return errors.New("Cannot connect to the router.")
-}
+}*/

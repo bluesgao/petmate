@@ -6,6 +6,8 @@ import (
 	"os"
 )
 
+var RedisCli *redis.Client
+
 func InitRedisClient(addr string, passwd string, poolsize int) (*redis.Client, error) {
 	log.Print("redis client init start...")
 
@@ -16,16 +18,16 @@ func InitRedisClient(addr string, passwd string, poolsize int) (*redis.Client, e
 		PoolSize: poolsize, //连接池
 	}
 
-	redisCli := redis.NewClient(&option)
+	RedisCli = redis.NewClient(&option)
 
 	//测试reids server能否联通
-	if ret, err := redisCli.Ping().Result(); err != nil {
+	if ret, err := RedisCli.Ping().Result(); err != nil {
 		//配置文件错误，退出进程
 		log.Print("redis client init error ...")
 		os.Exit(2)
 		//return nil, err
-	}else{
-		log.Print("redis client init end..."+ret)
+	} else {
+		log.Print("redis client init end..." + ret)
 	}
-	return redisCli, nil
+	return RedisCli, nil
 }

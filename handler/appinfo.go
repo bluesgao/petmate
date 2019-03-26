@@ -1,4 +1,4 @@
-package appinfo
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
