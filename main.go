@@ -7,10 +7,19 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"petmate/config"
 	_ "petmate/config"
+	"petmate/model"
 	"petmate/router"
 	"time"
 )
+
+func init()  {
+	log.Print("main init start...")
+	config.InitFileConf()
+	model.InitRedisClient(viper.GetString("redis.addr"), viper.GetString("password"), viper.GetInt("poolsize"))
+	log.Print("main init end...")
+}
 
 func main() {
 	g := gin.New()

@@ -8,34 +8,37 @@ import (
 	"strings"
 )
 
-//配置信息
-func init() {
-	log.Print("config init ...")
+//配置文件信息
+func InitFileConf() {
+	log.Print("file conf init start...")
 
-	c := Config{
-		FilePath: "config",
-		FileName: "props",
+	fileConf := FileConf{
+		Path: "config",
+		Name: "props",
 	}
 
 	// 初始化配置文件
-	if err := c.initConfig(); err != nil {
+	if err := fileConf.initConfig(); err != nil {
 		//配置文件错误，退出进程
-		log.Print("config file error ...")
+		log.Print("file conf init error ...")
 		os.Exit(2)
 	}
 
 	// 监控配置文件变化并热加载程序
-	c.watchConfig()
+	fileConf.watchConfig()
+	log.Print("file conf init end...")
 }
 
-type Config struct {
-	FilePath string
-	FileName string
+//配置文件信息
+type FileConf struct {
+	Path string
+	Name string
 }
 
-func (c *Config) initConfig() error {
-	viper.AddConfigPath(c.FilePath)
-	viper.SetConfigName(c.FileName)
+
+func (fileConf *FileConf) initConfig() error {
+	viper.AddConfigPath(fileConf.Path)
+	viper.SetConfigName(fileConf.Name)
 
 	viper.SetConfigType("yaml")     // 设置配置文件格式为YAML
 	viper.AutomaticEnv()            // 读取匹配的环境变量
@@ -50,9 +53,9 @@ func (c *Config) initConfig() error {
 }
 
 // 监控配置文件变化并热加载程序
-func (c *Config) watchConfig() {
+func (fileConf *FileConf) watchConfig() {
 	viper.WatchConfig()
 	viper.OnConfigChange(func(e fsnotify.Event) {
-		log.Printf("Config file changed: %s", e.Name)
+		log.Printf("file conf changed: %s", e.Name)
 	})
 }
