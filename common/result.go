@@ -11,10 +11,10 @@ type Result struct {
 	Data interface{} `json:"data"`
 }
 
-func SendResult(c *gin.Context, bizErrCode BizErrCode, data interface{}) {
+func SendResponse(c *gin.Context, code ErrCode, data interface{}) {
 	c.JSON(http.StatusOK, Result{
-		Code: bizErrCode.Code,
-		Msg:  bizErrCode.Msg,
+		Code: code.Code,
+		Msg:  code.Msg,
 		Data: data,
 	})
 }

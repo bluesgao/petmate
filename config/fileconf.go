@@ -35,7 +35,6 @@ type FileConf struct {
 	Name string
 }
 
-
 func (fileConf *FileConf) initConfig() error {
 	viper.AddConfigPath(fileConf.Path)
 	viper.SetConfigName(fileConf.Name)

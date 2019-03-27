@@ -3,7 +3,8 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"petmate/handler"
+	"petmate/handler/sys"
+	"petmate/handler/user"
 )
 
 //路由
@@ -17,22 +18,18 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	//系统相关
 	sysGroup := g.Group("/sysinfo")
 	{
-		sysGroup.GET("/ping", handler.Ping)
-		sysGroup.GET("/disk", handler.Disk)
-		sysGroup.GET("/cpu", handler.Cpu)
-		sysGroup.GET("/mem", handler.Mem)
-	}
+		sysGroup.GET("/ping", sys.Ping)
+		sysGroup.GET("/disk", sys.Disk)
+		sysGroup.GET("/cpu", sys.Cpu)
+		sysGroup.GET("/mem", sys.Mem)
+		sysGroup.GET("/name", sys.Name)
 
-	//应用相关
-	appGroup := g.Group("/appinfo")
-	{
-		appGroup.GET("/name", handler.Name)
 	}
 
 	//用户相关
 	userGroup := g.Group("/user")
 	{
-		userGroup.POST("/create", handler.Create)
+		userGroup.POST("", user.Create)
 	}
 
 	return g

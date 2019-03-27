@@ -1,4 +1,4 @@
-package handler
+package sys
 
 import (
 	"fmt"
@@ -7,6 +7,7 @@ import (
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/load"
 	"github.com/shirou/gopsutil/mem"
+	"github.com/spf13/viper"
 	"net/http"
 )
 
@@ -96,4 +97,9 @@ func Mem(c *gin.Context) {
 
 	message := fmt.Sprintf("%s - Free space: %dMB (%dGB) / %dMB (%dGB) | Used: %d%%", text, usedMB, usedGB, totalMB, totalGB, usedPercent)
 	c.String(status, "\n"+message)
+}
+
+//应用名称
+func Name(c *gin.Context) {
+	c.String(http.StatusOK, viper.GetString("app.name"))
 }

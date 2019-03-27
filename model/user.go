@@ -18,8 +18,18 @@ func (user *User) Create() error {
 	fields["userid"] = user.Userid
 
 	if ret, err := RedisCli.HMSet(key, fields).Result(); err != nil {
-		log.Printf("create user ret: %+v \n", ret)
+		log.Printf("redis create user error: %+v \n", err)
+	} else {
+		log.Printf("redis create user ret: %+v \n", ret)
+	}
 
+	//选择数据库和集合
+	collection := MongoCli.Database("cowboy").Collection("article")
+	//插入一条数据
+	if ret, err := collection.InsertOne(getContext(), &user); err != nil {
+		log.Printf("mongo create user error: %+v \n", err)
+	} else {
+		log.Printf("mongo create user ret: %+v \n", ret)
 	}
 
 	return nil

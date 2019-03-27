@@ -14,7 +14,8 @@ import (
 func init() {
 	log.Print("main init start...")
 	config.InitFileConf()
-	model.InitRedisClient(viper.GetString("redis.addr"), viper.GetString("password"), viper.GetInt("poolsize"))
+	model.InitRedisClient(viper.GetString("redis.addr"), viper.GetString("redis.password"), viper.GetInt("redis.poolsize"))
+	model.InitMongoClient(viper.GetString("mongo.url"), "cowboy", viper.GetString("mongo.username"), viper.GetString("mongo.password"))
 	log.Print("main init end...")
 }
 

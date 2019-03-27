@@ -1,4 +1,4 @@
-package handler
+package user
 
 import (
 	"github.com/gin-gonic/gin"
@@ -12,15 +12,11 @@ type CreateRequest struct {
 	Password string `json:"password"`
 }
 
-type CreateResponse struct {
-	Username string `json:"username"`
-}
-
 func Create(c *gin.Context) {
 	var r CreateRequest
 	if err := c.Bind(&r); err != nil {
 		log.Printf("user create bind err:%+v \n", err)
-		common.SendResult(c, common.BizErrBind, nil)
+		common.SendResponse(c, common.RequstBindError, nil)
 		return
 	}
 
@@ -31,8 +27,8 @@ func Create(c *gin.Context) {
 
 	if err := user.Create(); err != nil {
 		log.Printf("user create err:%+v \n", err)
-		common.SendResult(c, common.BizErrDB, nil)
+		common.SendResponse(c, common.RedisError, nil)
 		return
 	}
-	common.SendResult(c, common.BizOk, nil)
+	common.SendResponse(c, common.Ok, user.Username)
 }
