@@ -1,6 +1,10 @@
 package model
 
-import "log"
+import (
+	"log"
+	"time"
+	"context"
+)
 
 type User struct {
 	Userid   string `json:"userid"`
@@ -25,8 +29,9 @@ func (user *User) Create() error {
 
 	//选择数据库和集合
 	collection := MongoCli.Database("cowboy").Collection("article")
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	//插入一条数据
-	if ret, err := collection.InsertOne(getContext(), &user); err != nil {
+	if ret, err := collection.InsertOne(ctx, user); err != nil {
 		log.Printf("mongo create user error: %+v \n", err)
 	} else {
 		log.Printf("mongo create user ret: %+v \n", ret)
