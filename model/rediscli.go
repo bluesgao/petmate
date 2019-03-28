@@ -23,7 +23,7 @@ func InitRedisClient(addr string, passwd string, poolsize int) (*redis.Client, e
 	//测试reids server能否联通
 	if ret, err := RedisCli.Ping().Result(); err != nil {
 		//配置文件错误，退出进程
-		log.Print("redis client init error ...")
+		log.Fatalf("redis client init error ...")
 		os.Exit(2)
 		//return nil, err
 	} else {

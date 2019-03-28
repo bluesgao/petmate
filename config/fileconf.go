@@ -20,7 +20,7 @@ func InitFileConf() {
 	// 初始化配置文件
 	if err := fileConf.initConfig(); err != nil {
 		//配置文件错误，退出进程
-		log.Print("file conf init error ...")
+		log.Fatalf("file conf init error ...")
 		os.Exit(2)
 	}
 

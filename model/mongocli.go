@@ -19,13 +19,13 @@ func InitMongoClient(url string) (*mongo.Client, error) {
 	var err error
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	if MongoCli, err = mongo.Connect(ctx, options.Client().ApplyURI(url)); err != nil {
-		log.Printf("mongo connect error:%+v", err)
+		log.Fatalf("mongo connect error:%+v", err)
 		os.Exit(2)
 		//return nil, err
 	}
 	//判断服务是否可用
 	if err = MongoCli.Ping(ctx, readpref.Primary()); err != nil {
-		log.Printf("mongo client ping error:%+v", err)
+		log.Fatalf("mongo client ping error:%+v", err)
 		os.Exit(2)
 		//return nil, err
 	}

@@ -15,7 +15,7 @@ type CreateRequest struct {
 func Create(c *gin.Context) {
 	var r CreateRequest
 	if err := c.Bind(&r); err != nil {
-		log.Printf("user create bind err:%+v \n", err)
+		log.Fatalf("user create bind err:%+v \n", err)
 		common.SendResponse(c, common.RequstBindError, nil)
 		return
 	}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 	"log"
@@ -26,8 +27,15 @@ func main() {
 
 	log.Printf("app [%s] listening at [%s]", viper.GetString("app.name"), viper.GetString("app.addr"))
 	if err := http.ListenAndServe(viper.GetString("app.addr"), g); err != nil {
-		log.Printf("api server start fail, cause by: %s", err)
+		log.Fatalf("api server start fail, cause by: %s", err)
 	}
+
+	defer func() {
+		//关闭 mongodb connection
+		model.MongoCli.Disconnect(context.TODO())
+		//关闭 redis connection
+		model.RedisCli.Close()
+	}()
 }
 
 /*func pingServer() error {
